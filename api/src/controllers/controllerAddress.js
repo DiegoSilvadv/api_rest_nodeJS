@@ -1,9 +1,8 @@
 const db = require('../config/db');
 
-
 module.exports = {
 
-    async store (req, res){
+    async store(req, res) {
         const datas = {
             "address": req.body.address
         }
@@ -17,7 +16,7 @@ module.exports = {
         }
     },
 
-    async show (req, res){
+    async show(req, res) {
         try {
             const response = await db.query('SELECT * FROM address');
             res.json(response[0]);
@@ -26,7 +25,7 @@ module.exports = {
         }
     },
 
-    async showById (req, res){
+    async showById(req, res) {
         try {
             const id = req.params.id;
             const response = await db.query(`SELECT * FROM address WHERE id_address = ${id}`);
@@ -38,7 +37,7 @@ module.exports = {
         }
     },
 
-    async update (req, res){
+    async update(req, res) {
         try {
             let id = req.params.id;
             let data = {
@@ -53,7 +52,7 @@ module.exports = {
         }
     },
 
-    async delete (req, res) {
+    async delete(req, res) {
         try {
             const id = req.params.id;
 
