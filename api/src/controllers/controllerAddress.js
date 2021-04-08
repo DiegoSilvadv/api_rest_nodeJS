@@ -1,7 +1,6 @@
 const db = require('../config/db');
 
 module.exports = {
-
     async store(req, res) {
         const data = {
             "address": req.body.address
@@ -9,19 +8,21 @@ module.exports = {
 
         try {
             const response = await db.query(`INSERT INTO address SET ?`, [data])
-            res.json(response);
-
+            return res.json(response);
         } catch (error) {
-            console.error(error)
+            console.error(error);
+            return res.json({ err: error });
         }
     },
 
     async show(req, res) {
         try {
             const response = await db.query('SELECT * FROM address');
-            res.json(response[0]);
+            return res.json(response[0]);
+
         } catch (error) {
-            console.error(error)
+            console.error(error);
+            return res.json({ err: error });
         }
     },
 
@@ -29,11 +30,11 @@ module.exports = {
         try {
             const id = req.params.id;
             const response = await db.query(`SELECT * FROM address WHERE id_address = ${id}`);
-
-            res.json(response[0]);
-
+            
+            return res.json(response[0]);
         } catch (error) {
-            console.error(error)
+            console.error(error);
+            return res.json({ err: error });
         }
     },
 
@@ -45,22 +46,23 @@ module.exports = {
             } 
 
             const response = await db.query(`UPDATE address SET ? WHERE id_address = ?`, [data, id]);
-            res.json(response);
-
+            
+            return res.json(response);
         } catch (error) {
-            console.error(error)
+            console.error(error);
+            return res.json({ err: error });
         }
     },
 
     async delete(req, res) {
         try {
             const id = req.params.id;
-
             const response = await db.query(`DELETE FROM address WHERE id_address = ${id}`);
+            
             res.json(response);
-
         } catch (error) {
-            console.error(error)
+            console.error(error);
+            return res.json({ err: error });
         }
     }
 }
