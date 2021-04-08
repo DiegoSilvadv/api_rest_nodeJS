@@ -3,12 +3,12 @@ const db = require('../config/db');
 module.exports = {
 
     async store(req, res) {
-        const datas = {
+        const data = {
             "address": req.body.address
         }
 
         try {
-            const response = await db.query(`INSERT INTO address SET ?`, [datas])
+            const response = await db.query(`INSERT INTO address SET ?`, [data])
             res.json(response);
 
         } catch (error) {
